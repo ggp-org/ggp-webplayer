@@ -40,7 +40,8 @@ public class GGP_WebPlayerServlet extends HttpServlet {
         in = in.replace((char)13, ' ');
         
         resp.getWriter().println("GET not supported. Sorry!");
-        resp.getWriter().println("Meanwhile, you wrote: " + in);
+        resp.getWriter().println("Meanwhile, you wrote: [" + in + "]");
+        resp.getWriter().println("Speaking to subdomain: [" + req.getServerName() + "]");
     }
     
     @Override
