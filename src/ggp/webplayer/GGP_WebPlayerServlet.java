@@ -56,18 +56,18 @@ public class GGP_WebPlayerServlet extends HttpServlet {
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String in = br.readLine();
         
-        String response = handleMessage(in);
+        String response = handleMessage(req.getServerName(), in);
         
         resp.getWriter().println(response);
         resp.getWriter().close();
     }
     
-    public String handleMessage(String in) {
+    public String handleMessage(String host, String in) {
         StateMachineGamer theGamer = new SimpleSearchLightGamer();
         
         try {
             Request request = new RequestFactory().create(theGamer, in);
-            String matchId = request.getMatchId();
+            String matchId = host + "::" + request.getMatchId();
             
             // Load current progress in the match, if available.
             OngoingMatch theOngoingMatch = OngoingMatch.loadOngoingMatch(matchId);
@@ -89,7 +89,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 // from the datastore.
                 Match theMatch = theGamer.getMatch();
                 String theGameJSON = theMatch.getGame().serializeToJSON();
-                theOngoingMatch = new OngoingMatch(theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getName().getValue().toString());                
+                theOngoingMatch = new OngoingMatch(host + "::" + theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getName().getValue().toString());                
             }
             if (theGamer.getMatch() == null) {
                 // Match just ended; we should delete it from our datastore.
