@@ -7,6 +7,8 @@ import java.net.URLDecoder;
 
 import javax.servlet.http.*;
 
+import com.google.appengine.repackaged.org.json.JSONObject;
+
 import player.gamer.statemachine.StateMachineGamer;
 import player.gamer.statemachine.simple.SimpleSearchLightGamer;
 import player.request.factory.RequestFactory;
@@ -17,6 +19,8 @@ import util.match.Match;
 
 @SuppressWarnings("serial")
 public class GGP_WebPlayerServlet extends HttpServlet {
+    private final int maxPlayClock = 1000;
+    
     @Override
     public void doOptions(HttpServletRequest req, HttpServletResponse resp) throws IOException {  
         resp.setHeader("Access-Control-Allow-Origin", "*");
@@ -89,13 +93,22 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 // from the datastore.
                 Match theMatch = theGamer.getMatch();
                 String theGameJSON = theMatch.getGame().serializeToJSON();
-                theOngoingMatch = new OngoingMatch(host + "::" + theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getName().getValue().toString());                
+                theOngoingMatch = new OngoingMatch(host + "::" + theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getName().getValue().toString());
+                
+                // Force the match to have a play clock of at most "maxPlayClock".
+                // This ensures that we don't use too much CPU on AppEngine.
+                String theMatchJSON = theGamer.getMatch().toJSON();
+                JSONObject theModifiedMatchObject = new JSONObject(theMatchJSON);
+                if (theModifiedMatchObject.getInt("playClock") > maxPlayClock) {
+                    theModifiedMatchObject.put("playClock", maxPlayClock);
+                }
+                theMatch = new Match(theModifiedMatchObject.toString(), theGamer.getMatch().getGame());
             }
             if (theGamer.getMatch() == null) {
                 // Match just ended; we should delete it from our datastore.
                 OngoingMatch.deleteOngoingMatch(matchId);
                 return out;
-            }
+            }            
             theOngoingMatch.setMatchJSON(theGamer.getMatch().toJSON());
             theOngoingMatch.save();
             
