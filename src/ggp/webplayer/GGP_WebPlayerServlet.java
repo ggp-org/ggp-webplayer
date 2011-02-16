@@ -25,7 +25,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
     public void doOptions(HttpServletRequest req, HttpServletResponse resp) throws IOException {  
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-        resp.setHeader("Access-Control-Allow-Headers", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
         resp.setHeader("Access-Control-Allow-Age", "86400");    
     }    
     
@@ -35,7 +35,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-        resp.setHeader("Access-Control-Allow-Headers", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
         resp.setHeader("Access-Control-Allow-Age", "86400");
 
         String in = req.getRequestURI();
@@ -54,7 +54,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-        resp.setHeader("Access-Control-Allow-Headers", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "Content-Type");
         resp.setHeader("Access-Control-Allow-Age", "86400");        
 
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
