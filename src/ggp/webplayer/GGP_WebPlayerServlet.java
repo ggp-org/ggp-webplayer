@@ -58,10 +58,17 @@ public class GGP_WebPlayerServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Age", "86400");        
 
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
-        String in = br.readLine();
-        
+        int contentLength = Integer.parseInt(req.getHeader("Content-Length").trim());
+        StringBuilder theInput = new StringBuilder();
+        for (int i = 0; i < contentLength; i++) {
+            theInput.append((char)br.read());
+        }
+        String in = theInput.toString().trim();
+
         String response = handleMessage(req.getServerName(), in);
-        
+
+        resp.setStatus(200);
+        resp.setContentLength(response.length());        
         resp.getWriter().println(response);
         resp.getWriter().close();
     }
