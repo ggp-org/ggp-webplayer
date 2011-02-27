@@ -1,6 +1,5 @@
 package ggp.webplayer;
 
-import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.*;
 
@@ -41,7 +40,7 @@ public class OngoingMatch {
     }
     
     public void save() {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+        PersistenceManager pm = Persistence.getPersistenceManager();
         pm.makePersistent(this);
         pm.close();
     }
@@ -49,26 +48,10 @@ public class OngoingMatch {
     /* Static methods */
     
     public static OngoingMatch loadOngoingMatch(String matchId) {
-        OngoingMatch theMatch = null;
-        PersistenceManager pm = PMF.get().getPersistenceManager();
-        try {
-            theMatch = pm.detachCopy(pm.getObjectById(OngoingMatch.class, matchId));
-        } catch(JDOObjectNotFoundException e) {
-            ;
-        } finally {
-            pm.close();
-        }
-        return theMatch;
+        return Persistence.loadSpecific(matchId, OngoingMatch.class);
     }
     
     public static void deleteOngoingMatch(String matchId) {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
-        try {
-            pm.deletePersistent(pm.getObjectById(OngoingMatch.class, matchId));
-        } catch(JDOObjectNotFoundException e) {
-            ;
-        } finally {
-            pm.close();
-        }
+        Persistence.clearSpecific(matchId, OngoingMatch.class);
     }    
 }
