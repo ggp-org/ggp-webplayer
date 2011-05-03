@@ -6,6 +6,7 @@ import java.util.List;
 import player.gamer.Gamer;
 import player.request.factory.exceptions.RequestFormatException;
 import player.request.grammar.AbortRequest;
+import player.request.grammar.PingRequest;
 import player.request.grammar.PlayRequest;
 import player.request.grammar.Request;
 import player.request.grammar.StartRequest;
@@ -46,6 +47,10 @@ public final class RequestFactory
 			else if (type.equals("abort"))
 			{
 			    return createAbort(gamer, list);
+			}
+			else if (type.equals("ping"))
+			{
+			    return createPing(gamer, list);
 			}
 			else
 			{
@@ -92,10 +97,6 @@ public final class RequestFactory
 		List<Gdl> theRules = parseDescription(arg3);
 		int startClock = Integer.valueOf(arg4.getValue());
 		int playClock = Integer.valueOf(arg5.getValue());
-		
-		// Special code for AppEngine: cap all clocks at 10 seconds.
-		if (startClock > 10) startClock = 10;
-		if (playClock > 10) playClock = 10;
 
 		// TODO: There may be more than five arguments. These may be worth
 		// parsing, once we find a meaningful way to handle them. They aren't
@@ -132,6 +133,16 @@ public final class RequestFactory
 
         return new AbortRequest(gamer, matchId);
     }	
+    
+    private PingRequest createPing(Gamer gamer, SymbolList list) throws GdlFormatException
+    {
+        if (list.size() != 1)
+        {
+            throw new IllegalArgumentException("Expected exactly 1 argument!");
+        }
+
+        return new PingRequest(gamer);
+    }       
 
 	private List<Gdl> parseDescription(SymbolList list) throws GdlFormatException
 	{

@@ -46,9 +46,8 @@ public final class PlayRequest extends Request
 			gamer.notifyObservers(new PlayerTimeEvent(gamer.getMatch().getPlayClock() * 1000));
 			return gamer.selectMove(gamer.getMatch().getPlayClock() * 1000 + receptionTime).toString();
 		} catch (Exception e) {
-		    return e.toString();
-		    //GamerLogger.logStackTrace("GamePlayer", e);
-			//return "nil";
+		    GamerLogger.logStackTrace("GamePlayer", e);
+			return "nil";
 		}
 	}
 

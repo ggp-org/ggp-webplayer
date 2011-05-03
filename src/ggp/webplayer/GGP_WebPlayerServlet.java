@@ -13,6 +13,8 @@ import player.gamer.statemachine.StateMachineGamer;
 import player.gamer.statemachine.simple.SimpleSearchLightGamer;
 import player.request.factory.RequestFactory;
 import player.request.grammar.Request;
+import player.request.grammar.StartRequest;
+import player.request.grammar.StopRequest;
 import util.game.Game;
 import util.gdl.grammar.GdlPool;
 import util.match.Match;
@@ -93,9 +95,9 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 theGamer.resetStateMachine(theMatch.getMostRecentState());
             }
             
-            String out = request.process(System.currentTimeMillis());            
+            String out = request.process(System.currentTimeMillis());
             
-            if (theOngoingMatch == null) {
+            if (theOngoingMatch == null && request instanceof StartRequest) {
                 // Construct a new OngoingMatch object if we didn't load one
                 // from the datastore.
                 Match theMatch = theGamer.getMatch();
@@ -111,13 +113,15 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 }
                 theMatch = new Match(theModifiedMatchObject.toString(), theGamer.getMatch().getGame());
             }
-            if (theGamer.getMatch() == null) {
+            if (theGamer.getMatch() == null && request instanceof StopRequest) {
                 // Match just ended; we should delete it from our datastore.
                 OngoingMatch.deleteOngoingMatch(matchId);
                 return out;
-            }            
-            theOngoingMatch.setMatchJSON(theGamer.getMatch().toJSON());
-            theOngoingMatch.save();
+            }
+            if (theOngoingMatch != null) {
+                theOngoingMatch.setMatchJSON(theGamer.getMatch().toJSON());
+                theOngoingMatch.save();
+            }
             
             return out;
         } catch (Exception e) {
