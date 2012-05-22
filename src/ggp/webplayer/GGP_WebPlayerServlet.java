@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 
 import javax.servlet.http.*;
 
-import com.google.appengine.repackaged.org.json.JSONObject;
+import org.json.JSONObject;
 
 import player.gamer.statemachine.StateMachineGamer;
 import player.gamer.statemachine.simple.SimpleSearchLightGamer;
