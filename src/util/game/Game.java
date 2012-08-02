@@ -3,7 +3,7 @@ package util.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.appengine.repackaged.org.json.JSONObject;
+import org.json.JSONObject;
 
 import util.gdl.factory.GdlFactory;
 import util.gdl.grammar.Gdl;
