@@ -5,8 +5,8 @@ import java.util.List;
 import player.event.PlayerTimeEvent;
 import player.gamer.Gamer;
 import player.gamer.event.GamerUnrecognizedMatchEvent;
-import util.gdl.grammar.GdlSentence;
-import util.logging.GamerLogger;
+import org.ggp.shared.gdl.grammar.GdlSentence;
+import org.ggp.shared.logging.GamerLogger;
 
 public final class PlayRequest extends Request
 {

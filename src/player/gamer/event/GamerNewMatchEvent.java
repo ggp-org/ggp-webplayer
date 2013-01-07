@@ -1,8 +1,8 @@
 package player.gamer.event;
 
-import util.gdl.grammar.GdlProposition;
-import util.match.Match;
-import util.observer.Event;
+import org.ggp.shared.gdl.grammar.GdlProposition;
+import org.ggp.shared.match.Match;
+import org.ggp.shared.observer.Event;
 
 public final class GamerNewMatchEvent extends Event
 {

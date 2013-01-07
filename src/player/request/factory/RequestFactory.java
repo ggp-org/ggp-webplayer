@@ -11,16 +11,16 @@ import player.request.grammar.PlayRequest;
 import player.request.grammar.Request;
 import player.request.grammar.StartRequest;
 import player.request.grammar.StopRequest;
-import util.game.Game;
-import util.gdl.factory.GdlFactory;
-import util.gdl.factory.exceptions.GdlFormatException;
-import util.gdl.grammar.Gdl;
-import util.gdl.grammar.GdlProposition;
-import util.gdl.grammar.GdlSentence;
-import util.symbol.factory.SymbolFactory;
-import util.symbol.grammar.Symbol;
-import util.symbol.grammar.SymbolAtom;
-import util.symbol.grammar.SymbolList;
+import org.ggp.shared.game.Game;
+import org.ggp.shared.gdl.factory.GdlFactory;
+import org.ggp.shared.gdl.factory.exceptions.GdlFormatException;
+import org.ggp.shared.gdl.grammar.Gdl;
+import org.ggp.shared.gdl.grammar.GdlProposition;
+import org.ggp.shared.gdl.grammar.GdlSentence;
+import org.ggp.shared.symbol.factory.SymbolFactory;
+import org.ggp.shared.symbol.grammar.Symbol;
+import org.ggp.shared.symbol.grammar.SymbolAtom;
+import org.ggp.shared.symbol.grammar.SymbolList;
 
 public final class RequestFactory
 {

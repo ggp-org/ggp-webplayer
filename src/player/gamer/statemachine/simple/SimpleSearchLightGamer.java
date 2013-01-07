@@ -6,13 +6,13 @@ import java.util.Random;
 
 import player.gamer.statemachine.StateMachineGamer;
 import player.gamer.statemachine.reflex.event.ReflexMoveSelectionEvent;
-import util.statemachine.MachineState;
-import util.statemachine.Move;
-import util.statemachine.StateMachine;
-import util.statemachine.exceptions.GoalDefinitionException;
-import util.statemachine.exceptions.MoveDefinitionException;
-import util.statemachine.exceptions.TransitionDefinitionException;
-import util.statemachine.implementation.prover.ProverStateMachine;
+import org.ggp.shared.statemachine.MachineState;
+import org.ggp.shared.statemachine.Move;
+import org.ggp.shared.statemachine.StateMachine;
+import org.ggp.shared.statemachine.exceptions.GoalDefinitionException;
+import org.ggp.shared.statemachine.exceptions.MoveDefinitionException;
+import org.ggp.shared.statemachine.exceptions.TransitionDefinitionException;
+import org.ggp.shared.statemachine.implementation.prover.ProverStateMachine;
 
 /**
  * SimpleSearchLightGamer is a simple state-machine-based Gamer. It will,

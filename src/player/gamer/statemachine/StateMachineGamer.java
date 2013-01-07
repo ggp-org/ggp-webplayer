@@ -7,15 +7,15 @@ import java.util.Set;
 import player.gamer.Gamer;
 import player.gamer.exception.MetaGamingException;
 import player.gamer.exception.MoveSelectionException;
-import util.gdl.grammar.GdlSentence;
-import util.logging.GamerLogger;
-import util.statemachine.MachineState;
-import util.statemachine.Move;
-import util.statemachine.Role;
-import util.statemachine.StateMachine;
-import util.statemachine.exceptions.GoalDefinitionException;
-import util.statemachine.exceptions.MoveDefinitionException;
-import util.statemachine.exceptions.TransitionDefinitionException;
+import org.ggp.shared.gdl.grammar.GdlSentence;
+import org.ggp.shared.logging.GamerLogger;
+import org.ggp.shared.statemachine.MachineState;
+import org.ggp.shared.statemachine.Move;
+import org.ggp.shared.statemachine.Role;
+import org.ggp.shared.statemachine.StateMachine;
+import org.ggp.shared.statemachine.exceptions.GoalDefinitionException;
+import org.ggp.shared.statemachine.exceptions.MoveDefinitionException;
+import org.ggp.shared.statemachine.exceptions.TransitionDefinitionException;
 
 /**
  * The base class for Gamers that rely on representing games as state machines.

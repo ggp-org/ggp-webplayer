@@ -5,12 +5,12 @@ import java.util.List;
 
 import player.gamer.exception.MetaGamingException;
 import player.gamer.exception.MoveSelectionException;
-import util.gdl.grammar.GdlProposition;
-import util.gdl.grammar.GdlSentence;
-import util.match.Match;
-import util.observer.Event;
-import util.observer.Observer;
-import util.observer.Subject;
+import org.ggp.shared.gdl.grammar.GdlProposition;
+import org.ggp.shared.gdl.grammar.GdlSentence;
+import org.ggp.shared.match.Match;
+import org.ggp.shared.observer.Event;
+import org.ggp.shared.observer.Observer;
+import org.ggp.shared.observer.Subject;
 
 /**
  * The Gamer class defines methods for both meta-gaming and move selection in a

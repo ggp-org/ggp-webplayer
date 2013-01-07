@@ -1,6 +1,6 @@
 package player.event;
 
-import util.observer.Event;
+import org.ggp.shared.observer.Event;
 
 public final class PlayerTimeEvent extends Event
 {

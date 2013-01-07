@@ -2,8 +2,8 @@ package player.gamer.statemachine.reflex.event;
 
 import java.util.List;
 
-import util.observer.Event;
-import util.statemachine.Move;
+import org.ggp.shared.observer.Event;
+import org.ggp.shared.statemachine.Move;
 
 public final class ReflexMoveSelectionEvent extends Event
 {

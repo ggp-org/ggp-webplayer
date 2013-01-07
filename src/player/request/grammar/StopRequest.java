@@ -1,9 +1,10 @@
 package player.request.grammar;
 
+import org.ggp.shared.logging.GamerLogger;
+
 import player.gamer.Gamer;
 import player.gamer.event.GamerCompletedMatchEvent;
 import player.gamer.event.GamerUnrecognizedMatchEvent;
-import util.logging.GamerLogger;
 
 public final class StopRequest extends Request
 {

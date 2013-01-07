@@ -15,9 +15,9 @@ import player.request.factory.RequestFactory;
 import player.request.grammar.Request;
 import player.request.grammar.StartRequest;
 import player.request.grammar.StopRequest;
-import util.game.Game;
-import util.gdl.grammar.GdlPool;
-import util.match.Match;
+import org.ggp.shared.game.Game;
+import org.ggp.shared.gdl.grammar.GdlPool;
+import org.ggp.shared.match.Match;
 
 @SuppressWarnings("serial")
 public class GGP_WebPlayerServlet extends HttpServlet {
@@ -89,7 +89,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 String theGameJSON = theOngoingMatch.getGameJSON();
                 String theMatchJSON = theOngoingMatch.getMatchJSON();
                 
-                Match theMatch = new Match(theMatchJSON, Game.loadFromJSON(theGameJSON));
+                Match theMatch = new Match(theMatchJSON, Game.loadFromJSON(theGameJSON), null);
                 theGamer.setMatch(theMatch);
                 theGamer.setRoleName(GdlPool.getProposition(GdlPool.getConstant(myRole)));
                 theGamer.resetStateMachine(theMatch.getMostRecentState());
@@ -111,7 +111,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 if (theModifiedMatchObject.getInt("playClock") > maxPlayClock) {
                     theModifiedMatchObject.put("playClock", maxPlayClock);
                 }
-                theMatch = new Match(theModifiedMatchObject.toString(), theGamer.getMatch().getGame());
+                theMatch = new Match(theModifiedMatchObject.toString(), theGamer.getMatch().getGame(), null);
             }
             if (theGamer.getMatch() == null && request instanceof StopRequest) {
                 // Match just ended; we should delete it from our datastore.

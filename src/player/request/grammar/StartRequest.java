@@ -4,10 +4,10 @@ import player.event.PlayerTimeEvent;
 import player.gamer.Gamer;
 import player.gamer.event.GamerNewMatchEvent;
 import player.gamer.event.GamerUnrecognizedMatchEvent;
-import util.game.Game;
-import util.gdl.grammar.GdlProposition;
-import util.logging.GamerLogger;
-import util.match.Match;
+import org.ggp.shared.game.Game;
+import org.ggp.shared.gdl.grammar.GdlProposition;
+import org.ggp.shared.logging.GamerLogger;
+import org.ggp.shared.match.Match;
 
 public final class StartRequest extends Request
 {
