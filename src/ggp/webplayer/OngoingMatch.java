@@ -3,6 +3,8 @@ package ggp.webplayer;
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.*;
 
+import org.ggp.shared.persistence.Persistence;
+
 import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable
