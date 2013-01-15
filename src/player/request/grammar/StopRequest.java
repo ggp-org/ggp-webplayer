@@ -1,6 +1,6 @@
 package player.request.grammar;
 
-import org.ggp.shared.logging.GamerLogger;
+import org.ggp.galaxy.shared.logging.GamerLogger;
 
 import player.gamer.Gamer;
 import player.gamer.event.GamerCompletedMatchEvent;

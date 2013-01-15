@@ -15,9 +15,9 @@ import player.request.factory.RequestFactory;
 import player.request.grammar.Request;
 import player.request.grammar.StartRequest;
 import player.request.grammar.StopRequest;
-import org.ggp.shared.game.Game;
-import org.ggp.shared.gdl.grammar.GdlPool;
-import org.ggp.shared.match.Match;
+import org.ggp.galaxy.shared.game.Game;
+import org.ggp.galaxy.shared.gdl.grammar.GdlPool;
+import org.ggp.galaxy.shared.match.Match;
 
 @SuppressWarnings("serial")
 public class GGP_WebPlayerServlet extends HttpServlet {
@@ -91,7 +91,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 
                 Match theMatch = new Match(theMatchJSON, Game.loadFromJSON(theGameJSON), null);
                 theGamer.setMatch(theMatch);
-                theGamer.setRoleName(GdlPool.getProposition(GdlPool.getConstant(myRole)));
+                theGamer.setRoleName(GdlPool.getConstant(myRole));
                 theGamer.resetStateMachine(theMatch.getMostRecentState());
             }
             
@@ -102,7 +102,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 // from the datastore.
                 Match theMatch = theGamer.getMatch();
                 String theGameJSON = theMatch.getGame().serializeToJSON();
-                theOngoingMatch = new OngoingMatch(host + "::" + theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getName().getValue().toString());
+                theOngoingMatch = new OngoingMatch(host + "::" + theMatch.getMatchId(), theGameJSON, theGamer.getRoleName().getValue().toString());
                 
                 // Force the match to have a play clock of at most "maxPlayClock".
                 // This ensures that we don't use too much CPU on AppEngine.

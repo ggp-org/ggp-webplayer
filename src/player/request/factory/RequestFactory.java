@@ -11,16 +11,16 @@ import player.request.grammar.PlayRequest;
 import player.request.grammar.Request;
 import player.request.grammar.StartRequest;
 import player.request.grammar.StopRequest;
-import org.ggp.shared.game.Game;
-import org.ggp.shared.gdl.factory.GdlFactory;
-import org.ggp.shared.gdl.factory.exceptions.GdlFormatException;
-import org.ggp.shared.gdl.grammar.Gdl;
-import org.ggp.shared.gdl.grammar.GdlProposition;
-import org.ggp.shared.gdl.grammar.GdlSentence;
-import org.ggp.shared.symbol.factory.SymbolFactory;
-import org.ggp.shared.symbol.grammar.Symbol;
-import org.ggp.shared.symbol.grammar.SymbolAtom;
-import org.ggp.shared.symbol.grammar.SymbolList;
+
+import org.ggp.galaxy.shared.game.Game;
+import org.ggp.galaxy.shared.gdl.factory.GdlFactory;
+import org.ggp.galaxy.shared.gdl.factory.exceptions.GdlFormatException;
+import org.ggp.galaxy.shared.gdl.grammar.GdlConstant;
+import org.ggp.galaxy.shared.gdl.grammar.GdlTerm;
+import org.ggp.galaxy.shared.symbol.factory.SymbolFactory;
+import org.ggp.galaxy.shared.symbol.grammar.Symbol;
+import org.ggp.galaxy.shared.symbol.grammar.SymbolAtom;
+import org.ggp.galaxy.shared.symbol.grammar.SymbolList;
 
 public final class RequestFactory
 {
@@ -74,7 +74,7 @@ public final class RequestFactory
 		Symbol arg2 = list.get(2);
 
 		String matchId = arg1.getValue();
-		List<GdlSentence> moves = parseMoves(arg2);
+		List<GdlTerm> moves = parseMoves(arg2);
 
 		return new PlayRequest(gamer, matchId, moves);
 	}
@@ -93,18 +93,18 @@ public final class RequestFactory
 		SymbolAtom arg5 = (SymbolAtom) list.get(5);
 
 		String matchId = arg1.getValue();
-		GdlProposition roleName = (GdlProposition) GdlFactory.create(arg2);
-		List<Gdl> theRules = parseDescription(arg3);
+		GdlConstant roleName = (GdlConstant) GdlFactory.createTerm(arg2);
+		String theRulesheet = arg3.toString();
 		int startClock = Integer.valueOf(arg4.getValue());
 		int playClock = Integer.valueOf(arg5.getValue());
-
+		
 		// TODO: There may be more than five arguments. These may be worth
 		// parsing, once we find a meaningful way to handle them. They aren't
 		// yet standardized, but, for example, one might be the URL of an XSL
 		// stylesheet for visualizing a state of the game, or the URL for the
 		// game on a repository server.
 
-		Game theReceivedGame = Game.createEphemeralGame(theRules);
+		Game theReceivedGame = Game.createEphemeralGame(theRulesheet);
 		return new StartRequest(gamer, matchId, roleName, theReceivedGame, startClock, playClock);
 	}
 
@@ -142,20 +142,9 @@ public final class RequestFactory
         }
 
         return new PingRequest(gamer);
-    }       
+    }
 
-	private List<Gdl> parseDescription(SymbolList list) throws GdlFormatException
-	{
-		List<Gdl> description = new ArrayList<Gdl>();
-		for (int i = 0; i < list.size(); i++)
-		{
-			description.add(GdlFactory.create(list.get(i)));
-		}
-
-		return description;
-	}
-
-	private List<GdlSentence> parseMoves(Symbol symbol) throws GdlFormatException
+	private List<GdlTerm> parseMoves(Symbol symbol) throws GdlFormatException
 	{
 		if (symbol instanceof SymbolAtom)
 		{
@@ -163,12 +152,12 @@ public final class RequestFactory
 		}
 		else
 		{
-			List<GdlSentence> moves = new ArrayList<GdlSentence>();
+			List<GdlTerm> moves = new ArrayList<GdlTerm>();
 			SymbolList list = (SymbolList) symbol;
 
 			for (int i = 0; i < list.size(); i++)
 			{
-				moves.add((GdlSentence) GdlFactory.create(list.get(i)));
+				moves.add(GdlFactory.createTerm(list.get(i)));
 			}
 
 			return moves;

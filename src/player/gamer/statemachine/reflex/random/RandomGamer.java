@@ -5,12 +5,12 @@ import java.util.Random;
 
 import player.gamer.statemachine.StateMachineGamer;
 import player.gamer.statemachine.reflex.event.ReflexMoveSelectionEvent;
-import org.ggp.shared.statemachine.Move;
-import org.ggp.shared.statemachine.StateMachine;
-import org.ggp.shared.statemachine.exceptions.GoalDefinitionException;
-import org.ggp.shared.statemachine.exceptions.MoveDefinitionException;
-import org.ggp.shared.statemachine.exceptions.TransitionDefinitionException;
-import org.ggp.shared.statemachine.implementation.prover.ProverStateMachine;
+import org.ggp.galaxy.shared.statemachine.Move;
+import org.ggp.galaxy.shared.statemachine.StateMachine;
+import org.ggp.galaxy.shared.statemachine.exceptions.GoalDefinitionException;
+import org.ggp.galaxy.shared.statemachine.exceptions.MoveDefinitionException;
+import org.ggp.galaxy.shared.statemachine.exceptions.TransitionDefinitionException;
+import org.ggp.galaxy.shared.statemachine.implementation.prover.ProverStateMachine;
 
 /**
  * RandomGamer is a very simple state-machine-based Gamer that will always

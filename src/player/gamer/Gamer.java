@@ -5,12 +5,13 @@ import java.util.List;
 
 import player.gamer.exception.MetaGamingException;
 import player.gamer.exception.MoveSelectionException;
-import org.ggp.shared.gdl.grammar.GdlProposition;
-import org.ggp.shared.gdl.grammar.GdlSentence;
-import org.ggp.shared.match.Match;
-import org.ggp.shared.observer.Event;
-import org.ggp.shared.observer.Observer;
-import org.ggp.shared.observer.Subject;
+
+import org.ggp.galaxy.shared.gdl.grammar.GdlConstant;
+import org.ggp.galaxy.shared.gdl.grammar.GdlTerm;
+import org.ggp.galaxy.shared.match.Match;
+import org.ggp.galaxy.shared.observer.Event;
+import org.ggp.galaxy.shared.observer.Observer;
+import org.ggp.galaxy.shared.observer.Subject;
 
 /**
  * The Gamer class defines methods for both meta-gaming and move selection in a
@@ -20,7 +21,7 @@ import org.ggp.shared.observer.Subject;
 public abstract class Gamer implements Subject
 {	
 	private Match match;
-	private GdlProposition roleName;
+	private GdlConstant roleName;
 
 	public Gamer()
 	{
@@ -43,7 +44,7 @@ public abstract class Gamer implements Subject
 	// ==== The Gaming Algorithms ====
 	public abstract void metaGame(long timeout) throws MetaGamingException;
 	
-	public abstract GdlSentence selectMove(long timeout) throws MoveSelectionException;
+	public abstract GdlTerm selectMove(long timeout) throws MoveSelectionException;
 	
 	// ==== Gamer Profile and Configuration ====
 	public abstract String getName();
@@ -57,11 +58,11 @@ public abstract class Gamer implements Subject
 		this.match = match;
 	}
 
-	public final GdlProposition getRoleName() {
+	public final GdlConstant getRoleName() {
 		return roleName;
 	}
 	
-	public final void setRoleName(GdlProposition roleName) {
+	public final void setRoleName(GdlConstant roleName) {
 		this.roleName = roleName;
 	}
 	

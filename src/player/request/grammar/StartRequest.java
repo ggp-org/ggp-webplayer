@@ -4,10 +4,10 @@ import player.event.PlayerTimeEvent;
 import player.gamer.Gamer;
 import player.gamer.event.GamerNewMatchEvent;
 import player.gamer.event.GamerUnrecognizedMatchEvent;
-import org.ggp.shared.game.Game;
-import org.ggp.shared.gdl.grammar.GdlProposition;
-import org.ggp.shared.logging.GamerLogger;
-import org.ggp.shared.match.Match;
+import org.ggp.galaxy.shared.game.Game;
+import org.ggp.galaxy.shared.gdl.grammar.GdlConstant;
+import org.ggp.galaxy.shared.logging.GamerLogger;
+import org.ggp.galaxy.shared.match.Match;
 
 public final class StartRequest extends Request
 {
@@ -15,10 +15,10 @@ public final class StartRequest extends Request
 	private final Gamer gamer;
 	private final String matchId;
 	private final int playClock;
-	private final GdlProposition roleName;
+	private final GdlConstant roleName;
 	private final int startClock;
 
-	public StartRequest(Gamer gamer, String matchId, GdlProposition roleName, Game theGame, int startClock, int playClock)
+	public StartRequest(Gamer gamer, String matchId, GdlConstant roleName, Game theGame, int startClock, int playClock)
 	{
 		this.gamer = gamer;
 		this.matchId = matchId;

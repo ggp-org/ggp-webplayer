@@ -3,7 +3,7 @@ package player.request.grammar;
 import player.gamer.Gamer;
 import player.gamer.event.GamerCompletedMatchEvent;
 import player.gamer.event.GamerUnrecognizedMatchEvent;
-import org.ggp.shared.logging.GamerLogger;
+import org.ggp.galaxy.shared.logging.GamerLogger;
 
 public final class AbortRequest extends Request
 {

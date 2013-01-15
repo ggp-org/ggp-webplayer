@@ -7,15 +7,16 @@ import java.util.Set;
 import player.gamer.Gamer;
 import player.gamer.exception.MetaGamingException;
 import player.gamer.exception.MoveSelectionException;
-import org.ggp.shared.gdl.grammar.GdlSentence;
-import org.ggp.shared.logging.GamerLogger;
-import org.ggp.shared.statemachine.MachineState;
-import org.ggp.shared.statemachine.Move;
-import org.ggp.shared.statemachine.Role;
-import org.ggp.shared.statemachine.StateMachine;
-import org.ggp.shared.statemachine.exceptions.GoalDefinitionException;
-import org.ggp.shared.statemachine.exceptions.MoveDefinitionException;
-import org.ggp.shared.statemachine.exceptions.TransitionDefinitionException;
+import org.ggp.galaxy.shared.gdl.grammar.GdlSentence;
+import org.ggp.galaxy.shared.gdl.grammar.GdlTerm;
+import org.ggp.galaxy.shared.logging.GamerLogger;
+import org.ggp.galaxy.shared.statemachine.MachineState;
+import org.ggp.galaxy.shared.statemachine.Move;
+import org.ggp.galaxy.shared.statemachine.Role;
+import org.ggp.galaxy.shared.statemachine.StateMachine;
+import org.ggp.galaxy.shared.statemachine.exceptions.GoalDefinitionException;
+import org.ggp.galaxy.shared.statemachine.exceptions.MoveDefinitionException;
+import org.ggp.galaxy.shared.statemachine.exceptions.TransitionDefinitionException;
 
 /**
  * The base class for Gamers that rely on representing games as state machines.
@@ -120,14 +121,14 @@ public abstract class StateMachineGamer extends Gamer
     protected final void switchStateMachine(StateMachine newStateMachine) {
         try {        
             MachineState newCurrentState = newStateMachine.getInitialState();
-            Role newRole = newStateMachine.getRoleFromProp(getRoleName());
+            Role newRole = newStateMachine.getRoleFromConstant(getRoleName());
 
             // Attempt to run through the game history in the new machine
-            List<List<GdlSentence>> theMoveHistory = getMatch().getMoveHistory();
-            for(List<GdlSentence> nextMove : theMoveHistory) {
+            List<List<GdlTerm>> theMoveHistory = getMatch().getMoveHistory();
+            for(List<GdlTerm> nextMove : theMoveHistory) {
                 List<Move> theJointMove = new ArrayList<Move>();
-                for(GdlSentence theSentence : nextMove)
-                    theJointMove.add(newStateMachine.getMoveFromSentence(theSentence));                    
+                for(GdlTerm theTerm : nextMove)
+                    theJointMove.add(newStateMachine.getMoveFromTerm(theTerm));                    
                 newCurrentState = newStateMachine.getNextStateDestructively(newCurrentState, theJointMove);
             }
             
@@ -161,7 +162,7 @@ public abstract class StateMachineGamer extends Gamer
 			stateMachine = getInitialStateMachine();
 			stateMachine.initialize(getMatch().getGame().getRules());
 			currentState = stateMachine.getInitialState();
-			role = stateMachine.getRoleFromProp(getRoleName());
+			role = stateMachine.getRoleFromConstant(getRoleName());
 			getMatch().appendState(currentState.getContents());
 
 			stateMachineMetaGame(timeout);
@@ -180,19 +181,19 @@ public abstract class StateMachineGamer extends Gamer
 	 * current state.
 	 */
 	@Override
-	public final GdlSentence selectMove(long timeout) throws MoveSelectionException
+	public final GdlTerm selectMove(long timeout) throws MoveSelectionException
 	{
 		try
 		{
 			stateMachine.doPerMoveWork();
 
-			List<GdlSentence> lastMoves = getMatch().getMostRecentMoves();
+			List<GdlTerm> lastMoves = getMatch().getMostRecentMoves();
 			if (lastMoves != null)
 			{
 				List<Move> moves = new ArrayList<Move>();
-				for (GdlSentence sentence : lastMoves)
+				for (GdlTerm term : lastMoves)
 				{
-					moves.add(stateMachine.getMoveFromSentence(sentence));
+					moves.add(stateMachine.getMoveFromTerm(term));
 				}
 
 				currentState = stateMachine.getNextState(currentState, moves);
@@ -212,7 +213,7 @@ public abstract class StateMachineGamer extends Gamer
         stateMachine = getInitialStateMachine();
         stateMachine.initialize(getMatch().getGame().getRules());
         currentState = stateMachine.getMachineStateFromSentenceList(theState);
-        role = stateMachine.getRoleFromProp(getRoleName());
+        role = stateMachine.getRoleFromConstant(getRoleName());
 	}
     
     // Internal state about the current state of the state machine.
