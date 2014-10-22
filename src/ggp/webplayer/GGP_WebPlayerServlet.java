@@ -7,17 +7,17 @@ import java.net.URLDecoder;
 
 import javax.servlet.http.*;
 
-import org.json.JSONObject;
+import org.ggp.base.player.gamer.statemachine.StateMachineGamer;
+import org.ggp.base.player.gamer.statemachine.sample.SampleSearchLightGamer;
+import org.ggp.base.player.request.factory.RequestFactory;
+import org.ggp.base.player.request.grammar.Request;
+import org.ggp.base.player.request.grammar.StartRequest;
+import org.ggp.base.player.request.grammar.StopRequest;
+import org.ggp.base.util.game.Game;
+import org.ggp.base.util.gdl.grammar.GdlPool;
+import org.ggp.base.util.match.Match;
 
-import player.gamer.statemachine.StateMachineGamer;
-import player.gamer.statemachine.simple.SimpleSearchLightGamer;
-import player.request.factory.RequestFactory;
-import player.request.grammar.Request;
-import player.request.grammar.StartRequest;
-import player.request.grammar.StopRequest;
-import org.ggp.galaxy.shared.game.Game;
-import org.ggp.galaxy.shared.gdl.grammar.GdlPool;
-import org.ggp.galaxy.shared.match.Match;
+import external.JSON.JSONObject;
 
 @SuppressWarnings("serial")
 public class GGP_WebPlayerServlet extends HttpServlet {
@@ -76,7 +76,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
     }
     
     public String handleMessage(String host, String in) {
-        StateMachineGamer theGamer = new SimpleSearchLightGamer();
+        StateMachineGamer theGamer = new SampleSearchLightGamer();
         
         try {
             Request request = new RequestFactory().create(theGamer, in);
@@ -92,7 +92,7 @@ public class GGP_WebPlayerServlet extends HttpServlet {
                 Match theMatch = new Match(theMatchJSON, Game.loadFromJSON(theGameJSON), null);
                 theGamer.setMatch(theMatch);
                 theGamer.setRoleName(GdlPool.getConstant(myRole));
-                theGamer.resetStateMachine(theMatch.getMostRecentState());
+                theGamer.resetStateFromMatch();
             }
             
             String out = request.process(System.currentTimeMillis());
